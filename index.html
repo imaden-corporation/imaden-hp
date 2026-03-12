@@ -120,10 +120,11 @@ nav {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
+  align-items: center;
   justify-content: center;
   padding: 140px 10vw 80px;
   background: var(--white);
+  text-align: center;
 }
 
 .hero-eyebrow {
@@ -163,7 +164,7 @@ nav {
   line-height: 2;
   max-width: 560px;
   margin-bottom: 48px;
-  text-align: left;
+  text-align: center;
   opacity: 0;
   transform: translateY(20px);
   animation: fadeUp 0.8s 0.35s forwards;
@@ -399,6 +400,11 @@ nav {
   line-height: 1.9;
 }
 
+.contact-desc span {
+  display: inline-block;
+  text-align: left;
+}
+
 .contact-form { display: flex; flex-direction: column; gap: 16px; }
 
 .form-group { display: flex; flex-direction: column; gap: 8px; }
@@ -443,7 +449,7 @@ nav {
   font-size: 14px;
   color: var(--gray3);
   line-height: 1.8;
-  text-align: center;
+  text-align: left;
 }
 
 .confirm-area { display: block; }
@@ -452,7 +458,7 @@ nav {
   display: flex;
   gap: 16px;
   flex-wrap: nowrap;
-  justify-content: space-between;
+  justify-content: center;
   width: 100%;
 }
 
@@ -635,7 +641,7 @@ footer p { font-size: 14px; color: var(--gray3); }
 <section class="hero">
   <div class="hero-eyebrow">Imaden Co., Ltd.</div>
   <h1 class="hero-title">音響・映像・電気・LAN。<br>現場のすべてを、私たちに。</h1>
-  <p class="hero-sub">映像音響から電気工事・LAN工事まで。<br>大阪・日本橋を拠点に、あらゆる現場のニーズにお応えします。</p>
+  <p class="hero-sub">映像音響から電気工事・LAN工事まで。大阪・日本橋を拠点に、あらゆる現場のニーズにお応えします。</p>
   <div class="hero-actions">
     <a href="#contact" class="btn-primary">お問い合わせ</a>
     <a href="#services" class="btn-secondary">事業内容を見る</a>
@@ -720,7 +726,7 @@ footer p { font-size: 14px; color: var(--gray3); }
   <div class="contact-inner">
     <span class="section-eyebrow fade-in">Contact</span>
     <h2 class="section-title fade-in-big">お問い合わせ</h2>
-    <p class="contact-desc fade-in">ご相談・ご質問など、お気軽にお問い合わせください。<br>内容を確認のうえ、ご返信いたします。</p>
+    <p class="contact-desc fade-in"><span>ご相談・ご質問など、お気軽にお問い合わせください。<br>内容を確認のうえ、ご返信いたします。</span></p>
 
     <!-- 入力フォーム -->
     <form class="contact-form fade-in" id="contact-form">
