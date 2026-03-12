@@ -477,6 +477,7 @@ nav {
 .confirm-buttons {
   display: flex;
   gap: 16px;
+  flex-wrap: nowrap;
 }
 
 .btn-back {
@@ -484,15 +485,22 @@ nav {
   color: var(--black);
   border: none;
   border-radius: 980px;
-  padding: 18px 32px;
+  padding: 14px 24px;
   font-family: 'Space Grotesk', 'Noto Sans JP', sans-serif;
-  font-size: 17px;
+  font-size: 16px;
   font-weight: 500;
   cursor: pointer;
   transition: background 0.2s;
+  white-space: nowrap;
 }
 
 .btn-back:hover { background: var(--gray2); }
+
+.confirm-buttons .submit-btn {
+  width: auto;
+  padding: 14px 32px;
+  white-space: nowrap;
+}
 
 .success-msg {
   display: none;
