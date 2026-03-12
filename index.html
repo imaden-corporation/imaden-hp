@@ -446,7 +446,15 @@ nav {
   text-align: center;
 }
 
-.confirm-area { display: flex; flex-direction: column; gap: 24px; }
+.confirm-area { display: block; }
+
+.confirm-area .confirm-buttons {
+  display: flex;
+  gap: 16px;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+  width: 100%;
+}
 
 .confirm-table {
   border-top: 1px solid var(--gray2);
@@ -810,9 +818,7 @@ if (confirmBtn) {
     document.getElementById('c-email').textContent = form.querySelector('[name="email"]').value;
     document.getElementById('c-message').textContent = form.querySelector('[name="message"]').value;
     form.style.display = 'none';
-    confirmArea.style.display = 'flex';
-    confirmArea.style.flexDirection = 'column';
-    confirmArea.style.gap = '24px';
+    confirmArea.style.display = 'block';
   });
 }
 
