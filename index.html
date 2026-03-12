@@ -608,6 +608,8 @@ footer p { font-size: 14px; color: var(--gray3); }
 
 .fade-in-right.visible { opacity: 1; transform: translateX(0); }
 
+.maker-break { display: none; }
+
 /* ===== レスポンシブ ===== */
 @media (max-width: 768px) {
   nav { padding: 0 20px; }
@@ -622,6 +624,7 @@ footer p { font-size: 14px; color: var(--gray3); }
   .about-table td { font-size: 15px; }
   .service-card { padding: 32px 28px; }
   .about-inner .section-title { font-size: 28px; }
+  .maker-break { display: inline; }
 }
 </style>
 </head>
@@ -704,7 +707,7 @@ footer p { font-size: 14px; color: var(--gray3); }
       <tr>
         <th>取扱メーカー</th>
         <td>
-          TOA株式会社・ユニペックス株式会社<br>
+          TOA株式会社<span class="maker-break"><br></span>・ユニペックス株式会社<br>
           <span style="font-size:15px;color:var(--gray3)">正規代理店として販売・サポートを行っております</span>
         </td>
       </tr>
