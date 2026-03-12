@@ -151,7 +151,6 @@ nav {
 
 @media (max-width: 768px) {
   .hero-title {
-    font-size: 8.8vw;
     white-space: nowrap;
   }
 }
@@ -689,6 +688,18 @@ footer p { font-size: 14px; color: var(--gray3); }
 </footer>
 
 <script>
+// スマホでキャッチコピーを自動で最大サイズに調整
+function fitHeroTitle() {
+  const title = document.querySelector('.hero-title');
+  if (!title || window.innerWidth > 768) return;
+  title.style.fontSize = '10vw';
+  while (title.scrollWidth > title.parentElement.clientWidth - 32 && parseFloat(title.style.fontSize) > 1) {
+    title.style.fontSize = (parseFloat(title.style.fontSize) - 0.1) + 'vw';
+  }
+}
+fitHeroTitle();
+window.addEventListener('resize', fitHeroTitle);
+
 const observer = new IntersectionObserver((entries) => {
   entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
 }, { threshold: 0.15, rootMargin: '0px 0px -60px 0px' });
