@@ -120,6 +120,35 @@ nav {
 
 .nav-links a:hover { color: var(--white); }
 
+.nav-toggle {
+  display: none;
+  width: 44px;
+  height: 44px;
+  margin-right: -10px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+}
+
+.nav-toggle span {
+  display: block;
+  width: 22px;
+  height: 2px;
+  background: var(--white);
+  border-radius: 1px;
+  transition: transform 0.25s, opacity 0.25s;
+}
+
+.nav-toggle[aria-expanded="true"] span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.nav-toggle[aria-expanded="true"] span:nth-child(2) { opacity: 0; }
+.nav-toggle[aria-expanded="true"] span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+.hp-field { position: absolute; left: -9999px; width: 1px; height: 1px; opacity: 0; }
+
 /* ===== ヒーロー ===== */
 .hero {
   min-height: 100vh;
@@ -646,7 +675,19 @@ footer p { font-size: 14px; color: var(--gray3); }
 /* ===== レスポンシブ ===== */
 @media (max-width: 768px) {
   nav { padding: 0 20px; }
-  .nav-links { display: none; }
+  .nav-toggle { display: flex; }
+  .nav-links {
+    display: none;
+    position: absolute;
+    top: 60px; left: 0; right: 0;
+    flex-direction: column;
+    gap: 0;
+    background: rgba(10,10,10,0.96);
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+    padding: 8px 0;
+  }
+  .nav-links.open { display: flex; }
+  .nav-links a { display: block; padding: 14px 24px; color: rgba(255,255,255,0.85); }
   .hero { padding: 120px 16px 80px; align-items: center; text-align: center; }
   .hero-sub { text-align: center; margin-left: auto; margin-right: auto; white-space: normal; }
   .hero-actions { justify-content: center; }
@@ -688,7 +729,10 @@ footer p { font-size: 14px; color: var(--gray3); }
     <div class="nav-logo-mark"></div>
     <span class="nav-logo-text">IMADEN</span>
   </a>
-  <ul class="nav-links">
+  <button type="button" class="nav-toggle" id="nav-toggle" aria-label="メニューを開く" aria-expanded="false" aria-controls="nav-links">
+    <span></span><span></span><span></span>
+  </button>
+  <ul class="nav-links" id="nav-links">
     <li><a href="#services">事業内容</a></li>
     <li><a href="#about">会社概要</a></li>
     <li><a href="#contact">お問い合わせ</a></li>
@@ -821,6 +865,8 @@ footer p { font-size: 14px; color: var(--gray3); }
         <label for="contact-message">お問い合わせ内容 *</label>
         <textarea id="contact-message" name="message" placeholder="ご相談内容をご記入ください" required></textarea>
       </div>
+      <!-- 迷惑メール対策（人には見えない欄。ボットが入力すると Formspree が破棄する） -->
+      <input type="text" name="_gotcha" class="hp-field" tabindex="-1" autocomplete="off" aria-hidden="true">
       <p class="form-note">※ご入力いただいた情報は、お問い合わせへの対応にのみ使用いたします。</p>
       <button type="button" class="submit-btn" id="confirm-btn">確認する</button>
     </form>
@@ -876,6 +922,17 @@ function fitHeroTitle() {
 fitHeroTitle();
 window.addEventListener('resize', fitHeroTitle);
 
+// スマホ用メニュー
+const navToggle = document.getElementById('nav-toggle');
+const navLinks = document.getElementById('nav-links');
+function setMenu(open) {
+  navLinks.classList.toggle('open', open);
+  navToggle.setAttribute('aria-expanded', open);
+  navToggle.setAttribute('aria-label', open ? 'メニューを閉じる' : 'メニューを開く');
+}
+navToggle.addEventListener('click', () => setMenu(!navLinks.classList.contains('open')));
+navLinks.querySelectorAll('a').forEach(a => a.addEventListener('click', () => setMenu(false)));
+
 const observer = new IntersectionObserver((entries) => {
   entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
 }, { threshold: 0.15, rootMargin: '0px 0px -60px 0px' });
@@ -917,6 +974,7 @@ if (sendBtn) {
     data.append('company', form.querySelector('[name="company"]').value);
     data.append('email', form.querySelector('[name="email"]').value);
     data.append('message', form.querySelector('[name="message"]').value);
+    data.append('_gotcha', form.querySelector('[name="_gotcha"]').value);
     try {
       const res = await fetch('https://formspree.io/f/myknwakw', {
         method: 'POST',
